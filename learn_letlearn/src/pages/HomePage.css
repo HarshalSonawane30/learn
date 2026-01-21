@@ -1,0 +1,316 @@
+/* ===============================
+   THREE-COLUMN LAYOUT
+================================ */
+
+.home-page-wrapper {
+  background-color: #f3f4f6;
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
+.home-container {
+  max-width: 1280px;
+  padding: 0 1rem;
+}
+
+.home-layout {
+  display: grid;
+  grid-template-columns: 1fr 600px 320px;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Main Feed - Center Column */
+.main-feed {
+  grid-column: 2;
+}
+
+/* Right Sidebar */
+.right-sidebar {
+  grid-column: 3;
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+/* Responsive Layout */
+@media (max-width: 1200px) {
+  .home-layout {
+    grid-template-columns: 1fr 320px;
+  }
+  
+  .main-feed {
+    grid-column: 1;
+  }
+  
+  .right-sidebar {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .main-feed {
+    grid-column: 1;
+  }
+  
+  .right-sidebar {
+    grid-column: 1;
+    position: relative;
+    top: 0;
+    max-height: none;
+  }
+}
+
+/* ===============================
+   COMMENT AVATAR – SMALL & CLEAN
+================================ */
+
+.comment-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+/* Comment item layout */
+.comment-item {
+  align-items: flex-start;
+}
+
+/* Comment bubble – modern look */
+.comment-bubble {
+  background-color: #f1f5f9;
+  padding: 8px 12px;
+  border-radius: 12px;
+  max-width: 100%;
+  line-height: 1.4;
+}
+
+/* Username inside comment */
+.comment-user {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+/* Comment text */
+.comment-text {
+  font-size: 0.85rem;
+  color: #1f2937;
+}
+
+/* Comment actions */
+.comment-actions {
+  font-size: 0.75rem;
+}
+
+.comment-action-btn {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 8px;
+}
+
+.comment-action-btn:hover {
+  text-decoration: underline;
+  color: #2563eb;
+}
+
+/* Quick comment input alignment */
+.quick-comment img.comment-avatar {
+  width: 32px;
+  height: 32px;
+}
+
+/* Modal comment avatar */
+.comment-modal .comment-avatar {
+  width: 34px;
+  height: 34px;
+}
+
+/* Smooth appearance */
+.comment-item:hover .comment-bubble {
+  background-color: #e8f0fe;
+  transition: background 0.2s ease;
+}
+
+/* ===============================
+   LINKEDIN-LIKE FEED & POST STYLES
+================================ */
+
+/* Feed Header */
+.feed-header h4 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Composer (Create Post) */
+.post-create-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  background: white;
+}
+
+.post-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post-input {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  height: 44px;
+}
+
+.post-btn {
+  color: #374151;
+  border-radius: 8px;
+}
+.post-btn:hover { background: #f3f4f6; }
+
+/* Individual Post Card */
+.post-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.verified-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  background: #0a66c2;
+  color: #fff;
+  font-size: 10px;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+}
+
+.post-menu-btn {
+  color: #6b7280;
+}
+.post-menu-btn:hover { background: #f3f4f6; }
+
+.post-content p {
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.post-image-container { margin: 0 -0.5rem; }
+.post-image {
+  width: 100%;
+  max-height: 560px;
+  object-fit: cover;
+}
+
+/* Stats line */
+.post-stats {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+.reaction-icons span { margin-right: 2px; }
+
+/* Action row */
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  border-radius: 6px;
+  color: #374151;
+}
+.action-btn:hover { background: #f3f4f6; }
+.action-btn.liked, .action-btn .text-primary { color: #0a66c2 !important; }
+
+/* Suggestions cards (keep clean like LinkedIn side modules) */
+.suggestions-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.suggestions-card h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.suggestion-item {
+  transition: background-color 0.2s ease;
+}
+
+.suggestion-item:hover {
+  background-color: #f9fafb;
+}
+
+.suggestion-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.suggestions-list .suggestion-item:last-child {
+  border-bottom: none !important;
+}
+
+/* Quick Actions Card */
+.quick-actions-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Post Filters */
+.post-filters {
+  padding: 0.5rem 0;
+}
+
+.post-filters .btn {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .home-page-wrapper {
+    padding-top: 60px;
+  }
+  
+  .post-filters {
+    justify-content: flex-start !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .post-filters::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-avatar { width: 40px; height: 40px; }
+  .action-btn { height: 36px; gap: 6px; font-size: 0.85rem; }
+  .suggestion-avatar { width: 40px; height: 40px; }
+}
