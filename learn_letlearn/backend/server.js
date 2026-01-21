@@ -42,10 +42,12 @@ const httpServer = createServer(app);
 // Initialize Socket.IO
 const io = new Server(httpServer, {
   cors: {
-    origin: ['http://localhost:5173', 'http://localhost:5174'],
-    methods: ['GET', 'POST'],
-    credentials: true
-  }
+    origin: [process.env.FRONTEND_URL || 'http://localhost:5173', 'http://localhost:5174'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+    maxHttpBufferSize: 1e6
+  },
+  transports: ['websocket', 'polling']
 });
 
 // Make io accessible globally
@@ -55,7 +57,14 @@ global.io = io;
 setupSocketIO(io);
 
 // Connect to Database
-connectDB();
+(async () => {
+  try {
+    await connectDB();
+  } catch (error) {
+    console.error('Failed to start server:', error.message);
+    process.exit(1);
+  }
+})();
 
 // Middleware
 app.use(helmet({
