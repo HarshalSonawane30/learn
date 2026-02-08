@@ -56,14 +56,14 @@ global.io = io;
 // Setup Socket.IO handlers
 setupSocketIO(io);
 
-// Connect to Database
+// Connect to Database (non-blocking for Vercel serverless)
 (async () => {
   try {
     await connectDB();
     console.log('✓ Database connected successfully');
   } catch (error) {
     console.error('✗ Database connection failed:', error.message);
-    process.exit(1);
+    // Don't exit - allow serverless function to run
   }
 })();
 
@@ -71,6 +71,10 @@ setupSocketIO(io);
 app.use(helmet());
 app.use(compression());
 app.use(morgan('combined'));
+
+// Rate limiting (apply BEFORE routes)
+app.use('/api/', apiLimiter);
+
 app.use(cors({
   origin: process.env.FRONTEND_URL ? [process.env.FRONTEND_URL, 'http://localhost:5173', 'http://localhost:5174'] : ['http://localhost:5173', 'http://localhost:5174'],
   credentials: true
@@ -83,6 +87,15 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Root endpoint (MUST be before routes)
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'Learn & Let Learn API Server',
+    version: '1.0.0',
+    status: 'running'
+  });
+});
+
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
@@ -92,18 +105,6 @@ app.use('/api/messages', messageRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/teaching', teachingRoutes);
 app.use('/api/admin', adminRoutes);
-
-// Rate limiting
-app.use('/api/', apiLimiter);
-
-// Root endpoint
-app.get('/', (req, res) => {
-  res.status(200).json({
-    message: 'Learn & Let Learn API Server',
-    version: '1.0.0',
-    status: 'running'
-  });
-});
 
 // 404 handler
 app.use((req, res) => {
