@@ -9,6 +9,7 @@
     "CLOUDINARY_API_SECRET": "@cloudinary_api_secret",
     "FRONTEND_URL": "@frontend_url"
   },
+  "buildCommand": "echo 'Build complete'",
   "functions": {
     "api/index.js": {
       "runtime": "nodejs20.x",
@@ -22,5 +23,8 @@
       "dest": "/api/index.js"
     }
   ],
-  "regions": ["iad1"]
+  "regions": ["iad1"],
+  "git": {
+    "deploymentEnabled": true
+  }
 }

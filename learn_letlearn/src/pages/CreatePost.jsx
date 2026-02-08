@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X, Image as ImageIcon, Video, Type, Upload, ArrowLeft } from 'lucide-react';
 import Navbar from '../components/common/Navbar';
+import API_BASE_URL from '../config/api';
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ const CreatePost = () => {
         formData.append('media', media);
       }
 
-      const response = await fetch('http://localhost:5001/api/posts', {
+      const response = await fetch(`${API_BASE_URL}/api/posts`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`

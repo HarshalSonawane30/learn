@@ -75,12 +75,48 @@ app.use(morgan('combined'));
 // Rate limiting (apply BEFORE routes)
 app.use('/api/', apiLimiter);
 
-app.use(cors({
-  origin: process.env.FRONTEND_URL ? [process.env.FRONTEND_URL, 'http://localhost:5173', 'http://localhost:5174'] : ['http://localhost:5173', 'http://localhost:5174'],
-  credentials: true
-}));
+// CORS configuration
+const corsOptions = {
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'http://localhost:3000',
+      process.env.FRONTEND_URL,
+      // Add frontend Vercel URL if available
+      process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null,
+      // Allow in-progress Vercel deployments
+      /^https:.*\.vercel\.app$/ 
+    ].filter(Boolean);
+    
+    // For browser requests without origin, allow them
+    if (!origin) {
+      return callback(null, true);
+    }
+    
+    if (allowedOrigins.some(allowed => {
+      if (allowed instanceof RegExp) {
+        return allowed.test(origin);
+      }
+      return allowed === origin;
+    })) {
+      callback(null, true);
+    } else {
+      console.log('Origin not allowed by CORS:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+// Explicit preflight handling
+app.options('*', cors(corsOptions));
 
 // Health check endpoint for Vercel
 app.get('/health', (req, res) => {

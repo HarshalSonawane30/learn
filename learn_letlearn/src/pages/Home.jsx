@@ -25,7 +25,7 @@ const Home = () => {
       const token = localStorage.getItem('token');
       if (!token) return;
 
-      const response = await fetch('http://localhost:5001/api/users/suggestions', {
+      const response = await fetch(`${API_BASE_URL}/api/users/suggestions`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -130,7 +130,7 @@ const Home = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:5001/api/posts/feed', {
+      const response = await fetch(`${API_BASE_URL}/api/posts/feed`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

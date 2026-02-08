@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock, User, BookOpen, GraduationCap, Users } from 'lucide-react';
+import API_BASE_URL from '../../config/api';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -61,8 +62,7 @@ const Register = () => {
     setError('');
 
     try {
-      // TODO: Replace with actual API call
-      const response = await fetch('http://localhost:5001/api/auth/register', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
